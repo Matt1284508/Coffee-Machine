@@ -1,10 +1,28 @@
 from data import MENU, resources
 
-# TODO: Prompt user for drink selection
+water_resource = resources["water"]
+milk_resource = resources["milk"]
+coffee_resource = resources["coffee"]
+money = 0
+machine_active = True
 
-### !!! TODO: If off is entered, program is ended
+def report():
+    print(f"Water: {water_resource}ml")
+    print(f"Milk: {milk_resource}ml")
+    print(f"Coffee: {coffee_resource}g")
+    print(f"Money: ${money}")
 
-### !!! TODO: If report is entered, print report
+while machine_active:    
+    user_selection = input("What would you like? (espresso/latte/cappuccino): ")
+
+    if user_selection == "off":
+        machine_active = False
+    elif user_selection == "report":
+        print(report())
+    else:
+        # check_resources()
+        # process_payment()
+        # make_coffee()
 
 # TODO: Check if resources are sufficient
 
