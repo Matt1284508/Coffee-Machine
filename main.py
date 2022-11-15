@@ -1,10 +1,8 @@
 from data import MENU, resources
 
-water_resource = resources["water"]
-milk_resource = resources["milk"]
-coffee_resource = resources["coffee"]
 money = 0
 machine_active = True
+user_selection = ""
 
 def report():
     print(f"Water: {water_resource}ml")
@@ -12,26 +10,33 @@ def report():
     print(f"Coffee: {coffee_resource}g")
     print(f"Money: ${money}")
 
-while machine_active:    
-    user_selection = input("What would you like? (espresso/latte/cappuccino): ")
+def check_resources(order_ingredients):
+    for item in order_ingredients:
+        if order_ingredients[item] > resources[item]:
+            print(f"​Sorry there is not enough {item}.")
+            return False
+    return True
 
-    if user_selection == "off":
-        machine_active = False
-    elif user_selection == "report":
-        print(report())
+def request_payment():
+    print("Please make payment.")
+    total = int(input("how many quarters?: ")) * 0.25
+    total += int(input("how many dimes?: ")) * 0.1
+    total += int(input("how many nickles?: ")) * 0.05
+    total += int(input("how many pennies?: ")) * 0.01
+    return total
+
+def process_payment(payment, drink_cost):
+    if payment >= drink_cost:
+        change = round(payment - drink_cost, 2)
+        print(f"Here is ${change} in change.")
+        global money
+        money += drink_cost
+        return True
     else:
-        # check_resources()
-        # process_payment()
-        # make_coffee()
+        print("Sorry that's not enough money. Money refunded.")
+        return False
 
-# TODO: Check if resources are sufficient
-
-# TODO: Process payment
-
-# TODO: Check if transaction is successful
-
-# TODO: If resources are sufficient and trans is successful, make coffee
-
-# TODO: Print thank you/enjoy message and loop back to selection prompt
-
-# Coffee Emoji: ☕
+def make_drink(drink_name, order_ingredients):
+    for item in order_ingredients:
+        resources[item] -= order_ingredients[item]
+    print(f"Here is your {drink_name}. DRINK IS HOT! Please enjoy safely.")
