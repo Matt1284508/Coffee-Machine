@@ -6,7 +6,7 @@ machine_active = True
 def check_resources(order_ingredients):
     for item in order_ingredients:
         if order_ingredients[item] > resources[item]:
-            print(f"\n​Sorry there is not enough {item}.\n")
+            print(f"\nSorry there is not enough {item}.\n")
             return False
     return True
 
